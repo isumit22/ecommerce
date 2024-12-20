@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your's Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Your's Shop</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="cart">
+            <a href="cart.html"><button id="cart-btn">Cart (0)</button></a>
+        </div>
+        <button class="login" id="loginButton">Login ▼</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="login.html" class="sign-up">New Customer? Sign Up</a>
+            <a href="login.html">My Profile</a>
+            <a href="#">Orders</a>
+            <a href="#">Wishlist</a>
+            <a href="#">Rewards</a>
+            <a href="#">Gift Cards</a>
+        </div>
+    </div>
+    
+
+    <h2>Offers Currently Live!!</h2>
+    <div class="carousel-container" id="carouselCategories">
+        <div class="carousel-slide">
+            <a href="#" class="carousel-item" style="background-image: url('offer1.webp');">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-item" style="background-image: url('offer2.webp');">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-item" style="background-image: url('offer3.webp');">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-item" style="background-image: url('stock-vector-new-year-flash-sale-discount-template-banner-blank-space-product.jpeg');">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-item" style="background-image: url('offfer4.webp');">
+                <span></span>
+            </a>
+            <a href="#" class="carousel-item" style="background-image: url('offer\ 5.webp');">
+                <span></span>
+            </a>
+            
+            <!-- Duplicate first item for seamless loop -->
+            <a href="#" class="carousel-item" style="background-image: url('offer1.webp');">
+                <span></span>
+            </a>
+            
+        </div>
+    </div>
+    <script>
+        // Function to set up auto-rotate for a given carousel
+        function autoRotateCarousel(carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const slide = carousel.querySelector('.carousel-slide');
+            const items = slide.children;
+            const totalItems = items.length;
+            let index = 0;
+
+            setInterval(() => {
+                index++;
+                slide.style.transition = 'transform 0.5s ease-in-out';
+                slide.style.transform = `translateX(-${index * 100}%)`;
+
+                // Reset to seamless start after the last real item
+                if (index === totalItems - 1) {
+                    setTimeout(() => {
+                        slide.style.transition = 'none';
+                        slide.style.transform = 'translateX(0)';
+                        index = 0;
+                    }, 500); // Delay matches the transition duration
+                }
+            }, 3000);
+        }
+
+        // Initialize auto-rotate for both carousels
+        autoRotateCarousel('carouselCategories');
+        autoRotateCarousel('carouselCities');
+    </script>
+ <script>
+    function goToSpecialty(specialty) {
+        // Save selected specialty in localStorage
+        localStorage.setItem('selectedSpecialty', specialty);
+        // Redirect to the doctor profile page
+        window.location.href = 'doctor-profile.html';
+    }
+</script>
+
+    <!-- Categories Section -->
+<section class="categories">
+    <h2>Explore Our Categories</h2>
+    <div class="category-list">
+        <a href="electronics.html" class="category-item" style="background-image: url('images/tech.avif');">
+            <span class="category-name">Technology</span>
+        </a>
+        <a href="products.html?category=fashion" class="category-item" style="background-image: url('images/Fashion-Nova-1-1024x1024-1-1024x1024.jpg');">
+            <span class="category-name">Fashion</span>
+        </a>
+        <a href="products.html?category=grocery" class="category-item" style="background-image: url('images/grocery.webp');">
+            <span class="category-name">Grocery</span>
+        </a>
+        <a href="products.html?category=appliances" class="category-item" style="background-image: url('images/Best-POS-System-For-Appliance-Stores.png');">
+            <span class="category-name">Appliances</span>
+        </a>
+        <a href="products.html?category=home-decor" class="category-item" style="background-image: url('images/pure-home-living-gurgaon.webp');">
+            <span class="category-name">Home Decor</span>
+        </a>
+    </div>
+</section>
+
+
+    <!-- Products Section -->
+    <section class="products">
+        <h2>Products</h2>
+        <div class="product-list" id="product-list"></div>
+    </section>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
