@@ -218,6 +218,7 @@ const products = [
   
   // Function to display products
   function loadProducts() {
+    productList.innerHTML = "";//
     products.forEach((product) => {
       const productCard = document.createElement("div");
       productCard.classList.add("product-card");
@@ -234,16 +235,38 @@ const products = [
     });
   }
   
-  // Function to handle "Add to Cart"
-  function addToCart(productId) {
-    const product = products.find((p) => p.id === productId);
-    if (product) {
-      cartCount++;
-      cartBtn.textContent = `Cart (${cartCount})`;
-      alert(`${product.name} has been added to your cart!`);
+ // Function to handle "Add to Cart"
+function addToCart(productId) {
+  const product = products.find((p) => p.id === productId);
+  if (product) {
+    // Get the current cart from localStorage or initialize an empty array
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if the product is already in the cart
+    const existingItem = cart.find((item) => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.push({ ...product, quantity: 1 });
     }
+
+    // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Update cart button count
+    cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartBtn.textContent = `Cart (${cartCount})`;
+
+    alert(`${product.name} has been added to your cart!`);
   }
-  
-  // Load products when the page loads
-  window.onload = loadProducts;
+}
+
+// Update cart count on page load
+window.onload = () => {
+  loadProducts();
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartBtn.textContent = `Cart (${cartCount})`;
+};
+
   
